@@ -2,31 +2,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define V 4
+#define V 4  //  number of vertices = 4
 
 
-#define INF 99999
+#define INF 99999 // INF -> infinte , when vertices are not connected with each other
 
 void printSolution(int dist[][V]);
 
-void floydWarshall(int graph[][V])
+void floydWarshall(int graph[][V]) // Floyd warshall algorithm
 {
 	
-	int dist[V][V], i, j, k;
+	int dist[V][V];   // Matrix that will finally have shortest distance between every pair of vertices
+        int i, j, k;
 
 	for (i = 0; i < V; i++)
 		for (j = 0; j < V; j++)
-			dist[i][j] = graph[i][j];
+			dist[i][j] = graph[i][j];  // intialize with graph matrix
 
 	
-	for (k = 0; k < V; k++) {
+	for (k = 0; k < V; k++) {  // Adding vertices individually
 		for (i = 0; i < V; i++) {
 			
 			for (j = 0; j < V; j++) {
-				if (dist[i][j] > (dist[i][k] + dist[k][j])
-					&& (dist[k][j] != INF
-						&& dist[i][k] != INF))
-					dist[i][j] = dist[i][k] + dist[k][j];
+				if (dist[i][j] > (dist[i][k] + dist[k][j]) && (dist[k][j] != INF && dist[i][k] != INF))  // vertex k is on shortest path from i to j
+					dist[i][j] = dist[i][k] + dist[k][j];  
 			}
 		}
 	}
